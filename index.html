@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Gosok Hadiah</title>
+<head>
+<meta charset="UTF-8" />
+<title></title>
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -38,15 +38,24 @@
         z-index: 1;
         border-radius: 10px;
       }
+    .style1 {color: #003399}
+    .style2 {color: #CC3366}
     </style>
-  </head>
-  <body>
-    <h2>Gosok untuk lihat hadiahmu ??</h2>
-
-    <div class="wrapper">
-      <div id="prize">?? Kamu menang Diskon 50%! ??</div>
-      <canvas id="scratchCanvas" width="300" height="150"></canvas>
+</head>
+<body>
+  <h2>Gosok Terus </h2>
+  <div class="wrapper">
+    <div id="prize">
+      <p><br>
+        <span class="style2">Mau Maxwin...Easy Boss Ku <br>
+        Klik Wa Di Bawah Dan Masukan Kode Maxwin</span><br>
+        <span class="style1"></span><br>
+        <a href="https://wa.me/628123456789"><br>
+        <br>
+      </p>
     </div>
+      <canvas id="scratchCanvas" width="300" height="150"></canvas>
+</div>
 
     <script>
       const canvas = document.getElementById("scratchCanvas");
@@ -100,5 +109,5 @@
 
       canvas.addEventListener("touchend", () => (isDrawing = false));
     </script>
-  </body>
+</body>
 </html>
