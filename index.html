@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Gosok Hadiah</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding-top: 50px;
+        background: #f5f5f5;
+      }
+      .wrapper {
+        position: relative;
+        display: inline-block;
+      }
+      #prize {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 300px;
+        height: 150px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 22px;
+        color: gold;
+        font-weight: bold;
+        z-index: 0;
+        background: white;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+      }
+      #scratchCanvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Gosok untuk lihat hadiahmu ??</h2>
+
+    <div class="wrapper">
+      <div id="prize">?? Kamu menang Diskon 50%! ??</div>
+      <canvas id="scratchCanvas" width="300" height="150"></canvas>
+    </div>
+
+    <script>
+      const canvas = document.getElementById("scratchCanvas");
+      const ctx = canvas.getContext("2d");
+      let isDrawing = false;
+
+      // Gambar lapisan abu-abu saat halaman dimuat
+      window.onload = () => {
+        ctx.fillStyle = "#999";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      };
+
+      // Deteksi posisi mouse/touch
+      function getPosition(e) {
+        const rect = canvas.getBoundingClientRect();
+        const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+        const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+        return { x, y };
+      }
+
+      function erase(x, y) {
+        ctx.globalCompositeOperation = "destination-out";
+        ctx.beginPath();
+        ctx.arc(x, y, 20, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      canvas.addEventListener("mousedown", () => (isDrawing = true));
+      canvas.addEventListener("mouseup", () => (isDrawing = false));
+      canvas.addEventListener("mousemove", (e) => {
+        if (isDrawing) {
+          const { x, y } = getPosition(e);
+          erase(x, y);
+        }
+      });
+
+      canvas.addEventListener("touchstart", (e) => {
+        isDrawing = true;
+        const { x, y } = getPosition(e);
+        erase(x, y);
+        e.preventDefault();
+      });
+
+      canvas.addEventListener("touchmove", (e) => {
+        if (isDrawing) {
+          const { x, y } = getPosition(e);
+          erase(x, y);
+          e.preventDefault();
+        }
+      });
+
+      canvas.addEventListener("touchend", () => (isDrawing = false));
+    </script>
+  </body>
+</html>
