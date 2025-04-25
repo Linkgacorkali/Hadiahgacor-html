@@ -1,113 +1,195 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<title></title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        text-align: center;
-        padding-top: 50px;
-        background: #f5f5f5;
-      }
-      .wrapper {
-        position: relative;
-        display: inline-block;
-      }
-      #prize {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 300px;
-        height: 150px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 22px;
-        color: gold;
-        font-weight: bold;
-        z-index: 0;
-        background: white;
-        border: 2px solid #ccc;
-        border-radius: 10px;
-      }
-      #scratchCanvas {
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 1;
-        border-radius: 10px;
-      }
-    .style1 {color: #003399}
-    .style2 {color: #CC3366}
-    </style>
+  <meta charset="UTF-8" />
+  <title>Gosok Hadiah</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 50px;
+      background: #f5f5f5;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 24px;
+      color: #333;
+    }
+
+    .wrapper {
+      position: relative;
+      display: inline-block;
+      width: 480px;
+      height: 237px;
+    }
+
+    #prize {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 481px;
+      height: 479px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 22px;
+      color: gold;
+      font-weight: bold;
+      z-index: 0;
+      background: white;
+      border-radius: 10px;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    #scratchCanvas {
+      position: absolute;
+      top: 55px;
+      left: 716px;
+      z-index: 1;
+      width: 486px;
+      height: 483px;
+      border-radius: 10px;
+    }
+
+    .style3 {
+      color: #FF4D4D;
+      font-family: 'Algerian', cursive;
+      font-size: 28px;
+      font-weight: bold;
+      text-shadow: 3px 3px 6px #000;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+    }
+
+    .wa-button {
+      background-color: #25D366;
+      color: white;
+      padding: 15px 40px;
+      font-size: 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      margin-top: 15px;
+      display: inline-block;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .wa-button:hover {
+      background-color: #128C7E;
+      transform: scale(1.1);
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      position: absolute;
+      top: -1px;
+      left: 2px;
+      z-index: -1;
+    }
+
+    .overlay-text {
+      z-index: 2;
+      position: relative;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
-  <h2>Gosok Terus </h2>
-  <div class="wrapper">
-    <div id="prize">
-      <p><br>
-        <span class="style2">Mau Maxwin...Easy Boss Ku <br>
-        Klik Wa Di Bawah Dan Masukan Kode Maxwin</span><br>
-        <span class="style1"></span><br>
-        <a href="https://wa.me/628123456789"><br>
-        <br>
-      </p>
-    </div>
-      <canvas id="scratchCanvas" width="300" height="150"></canvas>
+<div class="wrapper">
+  <div id="prize">
+  <div>
+   <span class="style2">
+      </span>
+      <br><br>
+  <img src="photo_2025-04-24_17-29-35.jpg" alt="maxwin"></div>
+   <a href="https://wa.me/855718197838" target="_blank" class="wa-button">
+        Klaim via WhatsApp
+    </a>
+  </div>
+</div>
+  
+
+  <canvas id="scratchCanvas" width="480" height="237"></canvas>
 </div>
 
-    <script>
-      const canvas = document.getElementById("scratchCanvas");
-      const ctx = canvas.getContext("2d");
-      let isDrawing = false;
+<script>
+  const canvas = document.getElementById("scratchCanvas");
+  const ctx = canvas.getContext("2d");
+  let isDrawing = false;
 
-      // Gambar lapisan abu-abu saat halaman dimuat
-      window.onload = () => {
-        ctx.fillStyle = "#999";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-      };
+  function initCanvas() {
+    ctx.globalCompositeOperation = "source-over";
+    ctx.fillStyle = "#999";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    canvas.style.pointerEvents = 'auto';
+  }
 
-      // Deteksi posisi mouse/touch
-      function getPosition(e) {
-        const rect = canvas.getBoundingClientRect();
-        const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
-        const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
-        return { x, y };
-      }
+  window.onload = initCanvas;
 
-      function erase(x, y) {
-        ctx.globalCompositeOperation = "destination-out";
-        ctx.beginPath();
-        ctx.arc(x, y, 20, 0, Math.PI * 2);
-        ctx.fill();
-      }
+  function getPosition(e) {
+    const rect = canvas.getBoundingClientRect();
+    const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+    const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+    return { x, y };
+  }
 
-      canvas.addEventListener("mousedown", () => (isDrawing = true));
-      canvas.addEventListener("mouseup", () => (isDrawing = false));
-      canvas.addEventListener("mousemove", (e) => {
-        if (isDrawing) {
-          const { x, y } = getPosition(e);
-          erase(x, y);
-        }
-      });
+  function erase(x, y) {
+    ctx.globalCompositeOperation = "destination-out";
+    ctx.beginPath();
+    ctx.arc(x, y, 20, 0, Math.PI * 2);
+    ctx.fill();
+    checkRevealThreshold();
+  }
 
-      canvas.addEventListener("touchstart", (e) => {
-        isDrawing = true;
-        const { x, y } = getPosition(e);
-        erase(x, y);
-        e.preventDefault();
-      });
+  function getScratchedPercentage() {
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    let scratched = 0;
+    for (let i = 0; i < imageData.data.length; i += 4) {
+      if (imageData.data[i + 3] === 0) scratched++;
+    }
+    return (scratched / (canvas.width * canvas.height)) * 100;
+  }
 
-      canvas.addEventListener("touchmove", (e) => {
-        if (isDrawing) {
-          const { x, y } = getPosition(e);
-          erase(x, y);
-          e.preventDefault();
-        }
-      });
+  function checkRevealThreshold() {
+    if (getScratchedPercentage() > 50) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      canvas.style.pointerEvents = 'none';
+    }
+  }
 
-      canvas.addEventListener("touchend", () => (isDrawing = false));
-    </script>
+  canvas.addEventListener("mousedown", () => isDrawing = true);
+  canvas.addEventListener("mouseup", () => isDrawing = false);
+
+  canvas.addEventListener("mousemove", (e) => {
+    if (isDrawing) {
+      const { x, y } = getPosition(e);
+      erase(x, y);
+    }
+  });
+
+  canvas.addEventListener("touchstart", (e) => {
+    isDrawing = true;
+    const { x, y } = getPosition(e);
+    erase(x, y);
+    e.preventDefault();
+  });
+
+  canvas.addEventListener("touchmove", (e) => {
+    if (isDrawing) {
+      const { x, y } = getPosition(e);
+      erase(x, y);
+      e.preventDefault();
+    }
+  });
+
+  canvas.addEventListener("touchend", () => isDrawing = false);
+</script>
+
 </body>
 </html>
